@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue Test</title>
+
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+    
+    <div id="root">
+        <form>
+            <input type="text" v-on:keyup="sendRequest($event.target.value)" placeholder="Book Name">
+        </form>
+
+        <div class="container">
+            <template v-if="requesting == false">
+                <template v-if="books.length > 0">
+
+                    <div v-for="book in books" class="book-container">
+                        <div v-if="book.images != undefined">
+                            <img :src="book.images.thumbnail" alt="">
+                        </div>
+                        <div v-else>
+                            <img src="https://picsum.photos/150" alt="">
+                        </div>
+        
+                        <div>
+                            <h3>{{ book.title }}</h3>
+        
+                            <template v-if="book.authors != undefined">
+                                <template v-for="author in book.authors">
+                                    <span>{{ author }}</span>
+                                </template>
+                            </template>
+                            <template v-else=>
+                                <span>---</span>
+                            </template>
+                        </div>
+                    </div>
+                </template>            
+                <template v-else>
+                    <div class="loading-layout">
+                        No Books !
+                    </div>
+                </template> 
+
+            </template>            
+            <template v-else>
+                <div class="loading-layout">Loading ...</div>
+            </template>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script src="js/index.js"></script>
+</body>
+</html>
